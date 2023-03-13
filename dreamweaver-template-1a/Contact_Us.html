@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+</html>
+<title>EP Prime Employee - Contact Us</title>
+<div class="header">
+	<h1><a href="../index.html" title="Home" target="_self"><img alt="" src="../EPNew-Logo.png"></a></h1>
+<h2>Contact Us!</h2>
+</div>
+<!DOCTYPE html>
+<html>
+
+	<style>
+		img {
+			background-color: #FFFFFF;
+		}
+		
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #8E9CF8;
+  padding: 20px;
+}		
+</style>
+<body>
+	<h3>Send us a Message!</h3>
+
+<div>
+  <form name="gform" action="https://docs.google.com/forms/d/e/1FAIpQLSdKE9JaUpvWnucjSCLkczxNYUan49KQj7Glu_-U9NI3XaZV-A/formResponse?" id="gform" encrypt="text/plain" target="hidden_iframe" onsubmit="checkInput();">
+    <label for="fname">First Name</label>
+    <input type="text" id="entry.10004687" name="entry.10004687" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="entry.322967943" name="entry.322967943" placeholder="Your last name..">
+
+    <label for="email">Email</label>
+	<input type="text" id="entry.956841584" name="entry.956841584" placeholder="Your email so we can get back to you...">
+		   
+	<label for="message">Message</label>
+	<input type="text" id="entry.407870634" name="entry.407870634" placeholder="Your message here...">
+		   
+	  <input type="submit" value="Submit">
+  </form>
+	
+	<h4 id="sendMessage"></h4>
+	
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+</div>
+
+	
+	</body>
+	
+<script>
+	
+	const $ = elem => document.getElementById(elem);
+	
+	function checkInput () {
+		const questions = {
+			'first name' : $('entry.10004687'),
+			'last name' : $('entry.322967943'),
+			'email' : $('entry.956841584'),
+			'message' : $('entry.407870634')
+		};
+		
+	const sendMessage = $('sendMessage')
+            let neededFields = [];
+
+            for (let property in questions) {
+                if (!questions[property].value) {
+                    neededFields.push(property);
+                }
+            }
+
+            if (neededFields.length == 0) {
+                sendMessage.innerHTML = 'Message successfully sent.';
+                setTimeout(() => {
+                    sendMessage.innerHTML = '';
+                }, 3000);
+            } else if (neededFields.length == 1) {
+                sendMessage.innerHTML = `Please fill out the ${neededFields} field.`;
+            } else {
+                neededFields = neededFields.map((field, i) => {
+                    if (i == 0) { // first field
+                        return field;
+                    } else if (i == neededFields.length - 1) { // last field
+                        return ' and ' + field;
+                    } else {
+                        return ' ' + field;
+                    }
+                });
+
+                sendMessage.innerHTML = `Please fill out the ${neededFields} fields.`;
+            }
+	}
+	
+	//* https://docs.google.com/forms/d/e/1FAIpQLSdKE9JaUpvWnucjSCLkczxNYUan49KQj7Glu_-U9NI3XaZV-A/viewform?usp=pp_url&entry.10004687=testFirstName&entry.322967943=testLastName&entry.956841584=testEmail&entry.407870634=testMessage //*
+	
+	
+	</script>
+
+</html>

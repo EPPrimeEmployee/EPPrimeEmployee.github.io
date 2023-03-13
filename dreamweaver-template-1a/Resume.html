@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        h3 {
+            font-size: 23px;
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html" target="_self"><img src="../EPNew-Logo.png" alt="" /></a>
+
+    <h3>Submit a Resume</h3>
+
+    <div class="container">
+        <form name="gform" id="gform" encrypt="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSeGdtmVjwYI2Huq_kyX9rXI4r_pH6lWGBxdEYZXk9jfwtKUmA/formResponse?" target="hidden_iframe" onsubmit="checkInput();">
+            <label for="fname">First Name</label>
+            <input type="text" id="entry.1303650666" name="entry.1303650666" placeholder="Your name..">
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="entry.1746648518" name="entry.1746648518" placeholder="Your last name..">
+
+            <label for="job">Job you're applying for</label>
+            <select id="entry.452870588" name="entry.452870588">
+                <option value="" disabled selected>Select...</option>
+                <option value="office assistant">Office Assistant</option>
+                <option value="estimator">Estimator</option>
+                <option value="installer">Installer</option>
+            </select>
+
+            <label for="language">What is your dominant language?</label>
+            <select id="entry.621365832" name="entry.621365832">
+                <option value="" disabled selected>Select...</option>
+                <option value="english">English</option>
+                <option value="spanish">Spanish</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="otherlanguage">If you've selected "Other" please specify</label>
+            <input type="text" id="entry.311066613" name="entry.311066613" placeholder="Dominant language other than English or Spanish">
+
+            <label for="experience">How many years of experience do you have as the job you've selected?</label>
+            <select id="entry.624822450" name="entry.624822450">
+                <option value="" disabled selected>Select...</option>
+                <option value="none">none</option>
+                <option value="1 year">1 year</option>
+                <option value="2 years">2 years</option>
+                <option value="3 years">3 years</option>
+                <option value="4+ years">4+ years</option>
+            </select>
+
+            <label for="education">What is your level of education?</label>
+            <select id="entry.1441301766" name="entry.1441301766">
+                <option value="" disabled selected>Select...</option>
+                <option value="high school">High School Diploma</option>
+                <option value="associate"> Associate Degree (2 years)</option>
+                <option value="bachleors">Bachelor's Degree (4 years)</option>
+                <option value="graduate">Graduate Degree</option>
+                <option value="professional">Professional or Doctoral Degree</option>
+            </select>
+
+            <label for="type of degree">If you have a degree, what is it on?</label>
+            <input type="text" id="entry.512214892" name="entry.512214892" placeholder="Your type of degree...">
+
+            <label for="skills">What are your skills?</label>
+            <textarea id="entry.1713649191" name="entry.1713649191" placeholder="Values, personality traits, passions, talents, etc..." style="height:200px"></textarea>
+
+            <label for="purpose">Why are you applying for this job?</label>
+            <textarea id="entry.1750442126" name="entry.1750442126" placeholder="Because..." style="height:200px"></textarea>
+
+            <label for="company">Why did you choose EP Prime?</label>
+            <textarea id="entry.1045066226" name="entry.1045066226" placeholder="Because..." style="height:200px"></textarea>
+
+            <label for="email">Please provide us with your email address so we can reach out to you</label>
+            <input type="text" id="entry.273535756" name="entry.273535756" placeholder="me@email.com">
+
+            <label for="number">Please provide your phone number</label>
+            <input type="text" id="entry.528313365" name="entry.528313365" placeholder="915....">
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <h4 id="sendMessage"></h4>
+        
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    </div>
+
+
+    <script>
+
+        const $ = elem => document.getElementById(elem);
+
+        function checkInput() {
+            const questions = {
+                'first name': $('entry.1303650666'),
+                'last name': $('entry.1746648518'),
+                'job': $('entry.452870588'),
+                'dominant language': $('entry.621365832'),
+                'experience': $('entry.624822450'),
+                'education': $('entry.1441301766'),
+                'degree': $('entry.512214892'),
+                'skills': $('entry.1713649191'),
+                'application': $('entry.1750442126'),
+                'reason for choosing EP Prime': $('entry.1045066226'),
+                'e-mail': $('entry.273535756'),
+                'phone number': $('entry.528313365')
+            };
+
+            const sendMessage = $('sendMessage')
+            let neededFields = [];
+
+            for (let property in questions) {
+                if (!questions[property].value) {
+                    neededFields.push(property);
+                }
+            }
+
+            if (neededFields.length == 0) {
+                sendMessage.innerHTML = 'Resume successfully sent.';
+                setTimeout(() => {
+                    sendMessage.innerHTML = '';
+                }, 3000);
+            } else if (neededFields.length == 1) {
+                sendMessage.innerHTML = `Please fill out the ${neededFields} field.`;
+            } else {
+                neededFields = neededFields.map((field, i) => {
+                    if (i == 0) { // first field
+                        return field;
+                    } else if (i == neededFields.length - 1) { // last field
+                        return ' and ' + field;
+                    } else {
+                        return ' ' + field;
+                    }
+                });
+
+                sendMessage.innerHTML = `Please fill out the ${neededFields} fields.`;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
